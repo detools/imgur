@@ -9,7 +9,9 @@
                 "allow": [
                     "_imgurRequest",
                     "_getAuthorizationHeader",
-                    "_request"
+                    "_request",
+                    "_checkQuery",
+                    "_initSearchParams"
                 ]
             }
         ]
