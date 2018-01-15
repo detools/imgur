@@ -28,7 +28,7 @@
     "imgur": "./cli.js"
   },
   "scripts": {
-    "test": "node_modules/.bin/mocha"
+    "test": "node_modules/.bin/jest"
   },
   "devDependencies": {
     "chai": "^3.3.0",
