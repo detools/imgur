@@ -1,5 +1,4 @@
 const imgur = require('../lib/imgur');
-const Q = require('q');
 
 describe('#search()', () => {
   describe('search options validations', () => {
@@ -35,14 +34,11 @@ describe('#search()', () => {
       },
     };
     const payload = '/viral/month/1?q=meme';
-    let deferred;
 
     beforeEach(() => {
-      deferred = Q.defer();
-      deferred.resolve(mockResult);
       imgur._imgurRequest = jest
         .fn()
-        .mockReturnValue(deferred.promise)
+        .mockReturnValue(Promise.resolve(mockResult))
         .mockName('_imgurRequest');
     });
 

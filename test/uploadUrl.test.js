@@ -1,5 +1,4 @@
 const imgur = require('../lib/imgur');
-const Q = require('q');
 
 describe('validation', () => {
   test('should fail with no url', async () => {
@@ -16,14 +15,11 @@ describe('validation', () => {
 describe('delegates to #_imgurRequest(\'upload\', ...)', () => {
   const mockResult = { foo: 'bar' };
   const testUrl = 'https://somewhere/test.png';
-  let deferred;
 
   beforeEach(() => {
-    deferred = Q.defer();
-    deferred.resolve(mockResult);
     imgur._imgurRequest = jest
       .fn()
-      .mockReturnValue(deferred.promise)
+      .mockReturnValue(Promise.resolve(mockResult))
       .mockName('_imgurRequest');
   });
 
