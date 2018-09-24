@@ -1,20 +1,14 @@
-var imgur = require('../lib/imgur.js'),
-    chai = require('chai'),
-    chaiAsPromised = require('chai-as-promised'),
-    expect = chai.expect;
+import test from 'tape-async'
+import imgur from '../lib/imgur.js'
 
-chai.use(chaiAsPromised);
+test('#getClientId()', async (t) => {
+  t.equal(
+    imgur.getClientId(),
+    process.env.IMGUR_CLIENT_ID || 'f0ea04148a54268',
+    'should return the default client id, if nothing is set'
+  )
 
-describe('#getClientId()', function() {
-    it('should return the default client id, if nothing is set', function() {
-        var defaultClientId = 'f0ea04148a54268'
-        return expect(imgur.getClientId()).to.equal(defaultClientId);
-    });
-
-    it('should return the same client that was set', function() {
-        var clientId = '123456789abcdef';
-        imgur.setClientId(clientId);
-
-        return expect(imgur.getClientId()).to.equal(clientId);
-    });
-});
+  const clientId = '123456789abcdef'
+  imgur.setClientId(clientId)
+  t.equal(imgur.getClientId(), clientId, 'should return the same client that was set')
+})

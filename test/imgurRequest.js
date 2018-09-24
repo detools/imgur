@@ -1,28 +1,19 @@
-var imgur = require('../lib/imgur.js'),
-    chai = require('chai'),
-    chaiAsPromised = require('chai-as-promised'),
-    expect = chai.expect,
-    imgurTestId1 = 'mbgq7nd'; // Kitten
+import test from 'tape-async'
+import imgur from '../lib/imgur.js'
 
-chai.use(chaiAsPromised);
+test('#imgurRequest()', async (t) => {
+  const requests = [
+    { args: [], expectedError: 'You should define an operation' },
+    { args: [{}], expectedError: 'Operation is not a string' },
+    { args: ['lel'], expectedError: 'On empty payload only "credits" and "search" are accepted' },
+    { args: ['blah', 'mbgq7nd'], expectedError: 'Invalid operation' },
+  ]
 
-describe('#_imgurRequest()', function() {
-    beforeEach(function() {
-    });
-
-    it('should fail with no input', function(done) {
-        var errMsg = 'Invalid argument';
-
-        expect(imgur._imgurRequest())
-            .to.be.rejectedWith(errMsg)
-            .and.notify(done);
-    });
-
-    it('should fail with an invalid operation specified', function(done) {
-        var errMsg = 'Invalid operation';
-
-        expect(imgur._imgurRequest('blah', imgurTestId1))
-            .to.be.rejectedWith(errMsg)
-            .and.notify(done);
-    });
-});
+  for (const { args, expectedError } of requests) {
+    try {
+      await imgur.imgurRequest(...args)
+    } catch (error) {
+      t.equal(error, expectedError, `should fail with "${expectedError}"`)
+    }
+  }
+})

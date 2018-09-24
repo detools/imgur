@@ -3,7 +3,7 @@
 ### Installation
 
 ```bash
-npm install imgur -g
+npm install @detools/imgur -g
 ```
 
 ### Usage

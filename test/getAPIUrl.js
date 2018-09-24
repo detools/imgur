@@ -1,20 +1,11 @@
-var imgur = require('../lib/imgur.js'),
-    chai = require('chai'),
-    chaiAsPromised = require('chai-as-promised'),
-    expect = chai.expect;
+import test from 'tape-async'
+import imgur from '../lib/imgur.js'
 
-chai.use(chaiAsPromised);
+test('#getAPIUrl()', async (t) => {
+  const defaultAPIUrl = 'https://api.imgur.com/3/'
+  t.equal(imgur.getAPIUrl(), defaultAPIUrl, 'should return the default API URL, if nothing is set')
 
-describe('#getAPIUrl()', function() {
-    it('should return the default API URL, if nothing is set', function() {
-        var defaultAPIUrl = 'https://api.imgur.com/3/';
-        return expect(imgur.getAPIUrl()).to.equal(defaultAPIUrl);
-    });
-
-    it('should return the same API URL that was set', function() {
-        var apiUrl = 'https://imgur-apiv3.p.mashape.com/';
-        imgur.setAPIUrl(apiUrl);
-
-        return expect(imgur.getAPIUrl()).to.equal(apiUrl);
-    });
-});
+  const apiUrl = 'https://imgur-apiv3.p.mashape.com/'
+  imgur.setAPIUrl(apiUrl)
+  t.equal(imgur.getAPIUrl(), apiUrl, 'should return the same API URL that was set')
+})

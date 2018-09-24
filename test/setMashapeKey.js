@@ -1,37 +1,18 @@
-var imgur = require('../lib/imgur.js'),
-    chai = require('chai'),
-    chaiAsPromised = require('chai-as-promised'),
-    expect = chai.expect;
+import test from 'tape-async'
+import imgur from '../lib/imgur.js'
 
-chai.use(chaiAsPromised);
+test('#setMashapeKey()', async (t) => {
+  const apiURLs = [
+    { url: '0123456789abcdef', msg: 'should return the Mashape Key that was set' },
+    { url: '', msg: 'should not set an empty Mashape Key' },
+    { url: 1024, msg: 'should not set a number' },
+    { url: false, msg: 'should not set a boolean' },
+  ]
 
-describe('#setMashapeKey()', function() {
-    beforeEach(function() {
-        var defaultMashapeKey = '0123456789abcdef';
-        imgur.setMashapeKey(defaultMashapeKey);
-    });
+  for (const [index, { url, message }] of apiURLs.entries()) {
+    imgur.setMashapeKey('0123456789abcdef')
+    imgur.setMashapeKey(url)
 
-    it('should return the Mashape Key that was set', function() {
-        var mashapeKey = '0123456789abcdef';
-        imgur.setMashapeKey(mashapeKey);
-        return expect(imgur.getMashapeKey()).to.equal(mashapeKey);
-    });
-
-    it('should not set an empty Mashape Key', function() {
-        var mashapeKey = '';
-        imgur.setMashapeKey(mashapeKey);
-        return expect(imgur.getMashapeKey()).to.not.equal(mashapeKey);
-    });
-
-    it('should not set a number', function() {
-        var mashapeKey = 1024;
-        imgur.setMashapeKey(mashapeKey);
-        return expect(imgur.getMashapeKey()).to.not.equal(mashapeKey);
-    });
-
-    it('should not set a boolean', function() {
-        var mashapeKey = false;
-        imgur.setMashapeKey(mashapeKey);
-        return expect(imgur.getMashapeKey()).to.not.equal(mashapeKey);
-    });
-});
+    t[!index ? 'equal' : 'notEqual'](imgur.getMashapeKey(), url, message)
+  }
+})

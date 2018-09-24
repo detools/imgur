@@ -1,37 +1,18 @@
-var imgur = require('../lib/imgur.js'),
-    chai = require('chai'),
-    chaiAsPromised = require('chai-as-promised'),
-    expect = chai.expect;
+import test from 'tape-async'
+import imgur from '../lib/imgur.js'
 
-chai.use(chaiAsPromised);
+test('#setClientId()', async (t) => {
+  const apiURLs = [
+    { url: 'lolololol', msg: 'should return the client id that was set' },
+    { url: '', msg: 'should not set an empty client id' },
+    { url: 1024, msg: 'should not set a number' },
+    { url: false, msg: 'should not set a boolean' },
+  ]
 
-describe('#setClientId()', function() {
-    beforeEach(function() {
-        var defaultClientId = '0123456789abcdef';
-        imgur.setClientId(defaultClientId);
-    });
+  for (const [index, { url, message }] of apiURLs.entries()) {
+    imgur.setClientId('0123456789abcdef')
+    imgur.setClientId(url)
 
-    it('should return the client id that was set', function() {
-        var clientId = 'lolololol';
-        imgur.setClientId(clientId);
-        return expect(imgur.getClientId()).to.equal(clientId);
-    });
-
-    it('should not set an empty client id', function() {
-        var clientId = '';
-        imgur.setClientId(clientId);
-        return expect(imgur.getClientId()).to.not.equal(clientId);
-    });
-
-    it('should not set a number', function() {
-        var clientId = 1024;
-        imgur.setClientId(clientId);
-        return expect(imgur.getClientId()).to.not.equal(clientId);
-    });
-
-    it('should not set a boolean', function() {
-        var clientId = false;
-        imgur.setClientId(clientId);
-        return expect(imgur.getClientId()).to.not.equal(clientId);
-    });
-});
+    t[!index ? 'equal' : 'notEqual'](imgur.getClientId(), url, message)
+  }
+})
