@@ -89,7 +89,7 @@ npm install imgur
 #### Requiring the module:
 
 ```javascript
-var imgur = require('imgur');
+const imgur = require('imgur')
 ```
 
 #### Dealing with client IDs:
