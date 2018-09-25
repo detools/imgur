@@ -1,3 +1,8 @@
+# @detools/imgur
+
+[![npm version](https://badge.fury.io/js/%40detools%2Fimgur.svg)](https://www.npmjs.com/package/@detools/imgur)
+[![Build Status](https://travis-ci.org/detools/imgur.svg?branch=master)](https://travis-ci.org/detools/imgur)
+
 ## Command-line Usage
 
 ### Installation
