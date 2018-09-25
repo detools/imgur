@@ -139,7 +139,7 @@ Note: Defaults to process.env.IMGUR_MASHAPE_KEY
 
 ```js
 //Setting
-imgur.setMashapeKey(https://imgur-apiv3.p.mashape.com/)
+imgur.setMashapeKey('https://imgur-apiv3.p.mashape.com/')
 
 //Getting
 imgur.getMashapeKey()
