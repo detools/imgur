@@ -29,7 +29,9 @@
     "imgur": "./cli.js"
   },
   "scripts": {
-    "test": "tape -r esm test/* | tap-diff"
+    "test": "tape -r esm test/* | tap-diff",
+    "prepublish": "npm t",
+    "publish": "npm publish ./ --access=public"
   },
   "devDependencies": {
     "esm": "^3.0.84",
